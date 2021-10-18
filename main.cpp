@@ -12,6 +12,7 @@
 #include "graph.h"
 #include "filecheck.h"
 
+
 using namespace std;
 
 
@@ -23,16 +24,17 @@ states = NULL;
 string value;
 string state;
 bool check = true;
- 
+int data=0;
+char *V=new char[MAXDATA];
 system("cls");
 
-if(fcharge(&states))
-    cout << "Automata is ready\n" << endl;
+if(fcharge(&states,V,&data))
+    cout << "Automata is ready\n" <<data<< endl;
 
 int opc = 0,times = 0;
 
 while(true){
-    cout << "Menu\n1.Insert States\n2.Insert Connections\n3.Display States\n4.Display Final States\n0.Exit" << endl;
+    cout << "Menu\n1.Insert States\n2.Insert Connections\n3.Display States\n4.Display Final States\n5.Display matrix\n0.Exit" << endl;
     validateInput(&opc);
     system("cls");
     cout<<endl;
@@ -61,10 +63,11 @@ while(true){
             else{
                 cout << "Fail" << endl;
             }
+
             break;
         case 2:
             if(states){
-                check = insert_adj(&states);
+                check = insert_adj(&states,V,&data);
                 cout << endl;
                 if(check){
                     cout << "Success" << endl;
@@ -87,6 +90,12 @@ while(true){
                 display_final_States(states);
             else
                 cout << "The automata is empty" << endl << endl;
+            break;
+        case 5:
+            if(states)
+                automata_matrix(states,data,V);
+            else
+                cout << "The automata is empty" << endl << endl;   
             break;
         case 0:
             cout << "Tschusss";
