@@ -18,7 +18,7 @@
 
 using namespace std;
 
-#define FILENAME "dataa.txt"
+#define FILENAME "data.txt"
 
 bool fcharge(N **states,char *V,int *counter){
     ifstream file;
