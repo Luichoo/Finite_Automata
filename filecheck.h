@@ -14,20 +14,21 @@
 #include "graph.h"
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
-#define FILENAME "data.txt"
+#define FILENAME "dataa.txt"
 
-bool fcharge(N **states){
+bool fcharge(N **states,char *V,int *counter){
     ifstream file;
     stringstream sstream;
-    int pos=0,max,counter=0;
+    int pos=0,max;
     string text,aux,aux2,word;
     bool check;
     char delimiter =',',aux3;
     
-    file.open("data.txt", ios :: in);
+    file.open(FILENAME, ios :: in);
     if(file.fail()){
          cout << "File not found, The automata is empty " << endl << endl;
          return false;
@@ -37,7 +38,7 @@ bool fcharge(N **states){
         {
         case 0:
             getline(file,text);
-            max = stoi(text);
+            max = stoi(text);    
             break;
         case 1:
             getline(file,text);
@@ -61,17 +62,21 @@ bool fcharge(N **states){
                 getline(sstream, aux, delimiter);
                 getline(sstream, aux2, delimiter);
                 getline(sstream, word, delimiter);
-
+                
                 if(aux=="\0"||aux2=="\0"||aux3=='\0')
                     break;
 
                 aux3 = word[0];
+                V[*counter]=aux3;
+                *counter+=1;
                 check = insert_adjF(&(*states),aux,aux2,aux3);
+                
             }
             break;
         }
         pos+=1;
     }
+    resize_data(V,&(*counter));
 file.close();
 return true;
 }
