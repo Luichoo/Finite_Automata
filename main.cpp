@@ -18,6 +18,16 @@ using namespace std;
 
 #define MAXDATA 100
 
+void message(){
+cout<<"  /$$$$$$             /$$                                          /$$           "<<endl;   
+cout<<" /$$__  $$            | $$                                        | $$              "<<endl;
+cout<<"| $$  \\ $$ /$$   /$$ /$$$$$$    /$$$$$$  /$$$$$$/$$$$   /$$$$$$  /$$$$$$    /$$$$$$ "<<endl;
+cout<<"| $$$$$$$$| $$  | $$|_  $$_/   /$$__  $$| $$_  $$_  $$ |____  $$|_  $$_/   |____  $$"<<endl;
+cout<<"| $$__  $$| $$  | $$  | $$    | $$  \\ $$| $$ \\ $$ \\ $$  /$$$$$$$  | $$      /$$$$$$$"<<endl;
+cout<<"| $$  | $$| $$  | $$  | $$ /$$| $$  | $$| $$ | $$ | $$ /$$__  $$  | $$ /$$ /$$__  $$"<<endl;
+cout<<"| $$  | $$|  $$$$$$/  |  $$$$/|  $$$$$$/| $$ | $$ | $$|  $$$$$$$  |  $$$$/|  $$$$$$$"<<endl;
+cout<<"|__/  |__/ \\______/    \\___/   \\______/ |__/ |__/ |__/ \\_______/   \\___/   \\_______/"<<endl;
+}
 int main(){
 N *states;
 states = NULL;
@@ -29,14 +39,16 @@ char *V=new char[MAXDATA];
 system("cls");
 
 if(fcharge(&states,V,&data))
-    cout << "Automata is ready\n" <<data<< endl;
+    cout << "\nThe Automata is ready\n"<< endl;
 
 int opc = 0,times = 0;
 
 while(true){
+    message();
     cout << "Menu\n1.Insert States\n2.Insert Connections\n3.Display States\n4.Display Final States\n5.Display matrix\n0.Exit" << endl;
     validateInput(&opc);
     system("cls");
+    message();
     cout<<endl;
     switch(opc){
         case 1:
@@ -66,7 +78,9 @@ while(true){
 
             break;
         case 2:
+            cout<<"Option 2: insert Connections\n"<<endl;
             if(states){
+                
                 check = insert_adj(&states,V,&data);
                 cout << endl;
                 if(check){
@@ -80,18 +94,21 @@ while(true){
                 cout << "The automata is empty" << endl << endl;
             break;
         case 3:
+            cout<<"Option 3: Display all\n"<<endl;
             if(states)
                 display_ALL(states);
             else
                 cout << "The automata is empty" << endl << endl;
             break;
         case 4:
+            cout<<"Option 4: Display final states\n"<<endl;
             if(states)
                 display_final_States(states);
             else
                 cout << "The automata is empty" << endl << endl;
             break;
         case 5:
+            cout<<"Option 5: Display matrix\n"<<endl;
             if(states)
                 automata_matrix(states,data,V);
             else
