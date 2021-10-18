@@ -54,7 +54,7 @@ bool YNopt(){
     
     char opt;
     while(true){
-        cout << "Enter Y/N: ";cin >> opt;
+        cout << "Enter Y/N:  ";cin >> opt;
         fflush(stdin);
         if(opt == 'y'||opt == 'Y'){
             return true;

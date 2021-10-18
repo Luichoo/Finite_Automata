@@ -6,8 +6,8 @@
  * 
  * @copyright Copyright (c) 2021
  * 
- */
-#ifndef FILECHECK_H_INCLUDED
+ */   
+#ifndef FILECHECK_H_INCLUDED 
 #define FILECHECK_H_INCLUDED
 
 #include <iostream>
@@ -29,7 +29,7 @@ bool fcharge(N **states){
     
     file.open("data.txt", ios :: in);
     if(file.fail()){
-         cout << "File not found, The automata is empty" << endl << endl;
+         cout << "File not found, The automata is empty " << endl << endl;
          return false;
     }
     while(!file.eof()){

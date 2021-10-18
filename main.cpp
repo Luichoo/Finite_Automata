@@ -23,7 +23,7 @@ states = NULL;
 string value;
 string state;
 bool check = true;
-
+ 
 system("cls");
 
 if(fcharge(&states))
