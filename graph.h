@@ -12,7 +12,9 @@
 #ifndef GRAPH_H_INCLUDED
 #define GRAPH_H_INCLUDED
 
-
+#include <iostream>
+#include <vector>
+#include <string>
 using namespace std;
 
 typedef struct ady A;
@@ -205,8 +207,33 @@ bool connec_exist(A*aux, N*node)
     else
         return false;
 }
-
-bool insert_adj(N **states){
+void resize_data(char *V,int *data){
+    char aux[100]={'\0'};
+    int k=0,b=0,i;
+    
+    for(i = 0; i < *data; i++){
+        b = 0;
+        for(int j = 0; j < k; j++){
+            if(V[i] == aux[j] && i!= j ){
+                b = 1;
+                break;
+            } 
+        }
+        if(b==0){
+            aux[k]=V[i];
+            k+=1;
+        }
+        
+    }
+    for(i=0;i < *data;i++){
+        V[i]='\0';
+    }
+    *data=k;
+    for(i=0;i < *data;i++){
+        V[i]=aux[i];
+    }
+}
+bool insert_adj(N **states,char *V,int *data){
     if(!*states)
         return false;
 
@@ -247,7 +274,9 @@ bool insert_adj(N **states){
                 
             cout<<"Enter edge value\n"<<endl;
             validateInput(&value);
-
+            V[*data]=value;
+            *data+=1;
+            resize_data(V,&(*data));
             new_adj->next = NULL;
             new_adj->node = aux2;
             new_adj->value = value;
@@ -290,5 +319,75 @@ bool insert_adjF(N **states,string node1, string node2,char value){
             go_end(&aux->adj, new_adj);
 
             return true;
+}
+int node_count(N *states, int count){
+    if(!states){
+        return count;
+    }
+        else
+            return node_count(states->next,count+1);
+}
+void automata_matrix(N *states, int data,char *V){
+
+    int i,j=0,nodes,b=0;
+    N *aux;
+    A *aux2;;
+    aux=NULL;
+    nodes = node_count(states,0);
+
+    string **M=new string*[nodes];
+        for(i=0;i<nodes;i++){
+            M[i]=new string[data];
+    }
+
+    aux = states;
+    aux2 = aux->adj;
+
+    while(aux){
+       
+        for(i = 0, b = 0;i < data; i++,b = 0){
+            aux2=aux->adj;
+            while(aux2){
+                if(aux2->value == V[i]){
+                    if(b==0){
+                       // cout<<aux2->node->state;
+                        M[j][i]=aux2->node->state;
+                        b = 1;                        
+                    }
+                    else{
+                        M[j][i]+=",";
+                      //  cout<<","<<aux2->node->state;
+                        M[j][i]+=aux2->node->state;                        
+                    }
+                }
+                 aux2 = aux2->next;
+
+        }
+       
+                if(b == 0){
+                     M[j][i]="\t\t";
+                 }
+                 else if(M[j][i].length()<10)
+                    M[j][i]+="\t\t";
+                else if(M[j][i].length()>=10)
+                    M[j][i]+="   ";
+            }
+
+        j+=1;
+        aux = aux->next;
+    }
+    cout<<"\t|  ";
+    for(i = 0; i < data; i++)
+        cout <<"     "<< V[i]<< "        | ";    
+    cout << endl;
+    aux=states;
+    for(i=0;i<nodes;i++){
+        cout<<aux->state<<"\t";
+        for(j=0;j<data;j++){
+            cout<<"["<<M[i][j]<<"] ";
+        }
+        aux=aux->next;
+        cout<<endl;
+    }
 }
 #endif
