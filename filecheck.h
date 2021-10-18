@@ -45,22 +45,28 @@ bool fcharge(N **states){
             while(getline(sstream,aux,delimiter)){
                 check=insert_state(&(*states),aux,true);
             }
+            break;
         case 2:
             getline(file,text);
             sstream = (stringstream)text;
                 while(getline(sstream, aux, delimiter)){
                 check=node_final(*states, aux);
             }
+            break;
         default:
             while(!file.eof()){
+
                 getline(file,text);
                 sstream = (stringstream)text;
                 getline(sstream, aux, delimiter);
                 getline(sstream, aux2, delimiter);
                 getline(sstream, word, delimiter);
+
+                if(aux=="\0"||aux2=="\0"||aux3=='\0')
+                    break;
+
                 aux3 = word[0];
-                    check = insert_adjF(&(*states),aux,aux2,aux3);
-                
+                check = insert_adjF(&(*states),aux,aux2,aux3);
             }
             break;
         }
