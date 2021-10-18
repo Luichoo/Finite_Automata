@@ -10,27 +10,25 @@
 #include <iostream>
 #include <string.h>
 #include "graph.h"
+#include "filecheck.h"
 
 using namespace std;
 
-#define filename "data.txt"
+
 #define MAXDATA 100
+
 int main(){
 N *states;
 states = NULL;
 string value;
 string state;
 bool check = true;
-FILE *file;
+
 system("cls");
-file=fopen(filename, "r");
-if(file){
-    
-}
-else{
-    cout << "File not found, The automata is empty" << endl << endl;
-}
-fclose(file);
+
+if(fcharge(&states))
+    cout << "Automata is ready\n" << endl;
+
 int opc = 0,times = 0;
 
 while(true){
@@ -55,7 +53,7 @@ while(true){
                 cout << "Too many errors, going back to menu" << endl;
                 break;
             }
-            check = insert_state(&states,state);
+            check = insert_state(&states,state,false);
             cout << endl;
             if(check){
                 cout << "Success" << endl;
