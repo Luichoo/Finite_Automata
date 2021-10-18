@@ -11,6 +11,8 @@
 
 #ifndef GRAPH_H_INCLUDED
 #define GRAPH_H_INCLUDED
+
+
 using namespace std;
 
 typedef struct ady A;
@@ -125,6 +127,18 @@ void display_final_States(N *states){
         cout<<"---------------------------------------------------"<<endl;
          
 }
+bool node_final(N *states, string state){
+    if(states){
+        if(states->state == state){
+            states->end = true;
+            return true;            
+        }
+        else
+            return node_final(states->next,state);
+    }
+    
+    return false;
+}
 
 bool node_exist(N *states, string state){
     if(states){
@@ -147,25 +161,29 @@ N *node_search(N *states, string state){
     return NULL;
 }
 
-bool insert_state(N **states,string state){
+bool insert_state(N **states,string state,bool f){
     if(!*states){
         N *new_node = new N();
         if(!new_node){
             cout<<"New_Node_creation: FAIL"<<endl;
             return false;
         }   
-
+        
         new_node->state = state;    
-        cout << "Is final state?" << endl;
-        new_node->end = YNopt();
+        if(!f){
+            cout << "Is final state?" << endl;
+            new_node->end = YNopt();            
+        }
+        else
+            new_node->end = false;
+
         new_node->adj = NULL;
         new_node->next = NULL;
         *states = new_node;
-
         return true;  
     }
     else
-        return (insert_state(&(*states)->next, state));
+        return (insert_state(&(*states)->next, state,f));
 }
 
 void go_end(A **aux, A* new_adj){
@@ -204,7 +222,6 @@ bool insert_adj(N **states){
                 cout<<"New_edge_creation: FAIL"<<endl;
                 return false;
             }
-
             display_ALL(*states);
             cout<<"Enter the first node\n"<<endl;
             validateInput(&input);
@@ -231,6 +248,42 @@ bool insert_adj(N **states){
             cout<<"Enter edge value\n"<<endl;
             validateInput(&value);
 
+            new_adj->next = NULL;
+            new_adj->node = aux2;
+            new_adj->value = value;
+            go_end(&aux->adj, new_adj);
+
+            return true;
+}
+bool insert_adjF(N **states,string node1, string node2,char value){
+    if(!*states)
+        return false;
+
+            N *aux,*aux2;
+            aux = NULL;
+            aux2 = NULL;
+
+            A *new_adj = new A();
+            if(!new_adj){    
+                cout<<"New_edge_creation: FAIL"<<endl;
+                return false;
+            }
+            aux = node_search(*states, node1);
+            if(!aux){
+                cout<<"inexistent node"<<endl;
+                return false;  
+            }
+            aux2 = node_search(*states, node2);
+            if(!aux2){
+                cout<<"inexistent node"<<endl;
+                return false;  
+            }
+            if(connec_exist(aux->adj, aux2))
+            {
+                cout<<"The connection already exist"<<endl;
+                return false;
+            }
+                
             new_adj->next = NULL;
             new_adj->node = aux2;
             new_adj->value = value;
