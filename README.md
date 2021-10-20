@@ -9,6 +9,7 @@ The third are the final states of the automata.
 And from the fourth paragraph down are the conecctions between states. 
 
 ### File format example 
+```
 7  
 0,1,2,3,4,5,6  
 6  
@@ -18,3 +19,4 @@ And from the fourth paragraph down are the conecctions between states.
 3,4,l  
 4,5,o  
 5,6,;  
+```
