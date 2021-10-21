@@ -62,12 +62,11 @@ bool fcharge(N **states,char *V,int *counter){
                 getline(sstream, aux, delimiter);
                 getline(sstream, aux2, delimiter);
                 getline(sstream, word, delimiter);
-                
+
                 aux3 = word[0];
                 if(aux=="\0"||aux2=="\0"||aux3=='\0')
                     break;
 
-                
                 V[*counter]=aux3;
                 *counter+=1;
                 check = insert_adjF(&(*states),aux,aux2,aux3);

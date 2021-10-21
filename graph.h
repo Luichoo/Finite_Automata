@@ -361,9 +361,7 @@ void automata_matrix(N *states, int data,char *V){
                     }
                 }
                  aux2 = aux2->next;
-
         }
-       
                 if(b == 0){
                      M[j][i]="\t\t";
                  }
@@ -372,7 +370,6 @@ void automata_matrix(N *states, int data,char *V){
                 else if(M[j][i].length()>=10)
                     M[j][i]+="   ";
             }
-
         j+=1;
         aux = aux->next;
     }
